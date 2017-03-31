@@ -1,0 +1,21 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header>
+      <tem:AutenticacaoWebService>
+         <!--Optional:-->
+         <tem:Token>NzM0NzY7NjQyOzM1Ng==</tem:Token>
+         <tem:ShortCode>1025</tem:ShortCode>
+         <!--Optional:-->
+         <tem:NomeMetodo>IntegracaoVelocimetroWs.asmx</tem:NomeMetodo>
+      </tem:AutenticacaoWebService>
+   </soapenv:Header>
+   <soapenv:Body>
+      <tem:AtualizarVelocimetro>
+         <!--Optional:-->
+         <tem:prefixo>C3214</tem:prefixo>
+         <!--Optional:-->
+         <tem:placa>ELW-4386</tem:placa>
+         <tem:dataHora>2016-07-19T15:17:00</tem:dataHora>
+         <tem:hodometro>4583</tem:hodometro>
+      </tem:AtualizarVelocimetro>
+   </soapenv:Body>
+</soapenv:Envelope>

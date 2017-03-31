@@ -1,0 +1,62 @@
+# Envio de E-mail com Log4J 
+---------------------------
+
+### configuration log4j.xml  
+ 
+ ```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+ 
+    <appender name="mailAppender" class="org.apache.log4j.net.SMTPAppender">
+        <param name="BufferSize" value="50" />
+        <param name="SMTPHost" value="smtp.mail.yahoo.com" />
+        <param name="SMTPPort" value="587" />
+        <param name="SMTPUsername" value="myemail_id@yahoo.co.in" />
+        <param name="SMTPPassword" value="mypassword" />
+        <param name="From" value="fromemail_id@yahoo.co.in" />
+        <param name="To" value="to_emailid@gmail.com" />
+        <param name="Subject" value="Testing Log4j mail notification" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{ISO8601}]%n%n%-5p%n%n%c%n%n%m%n%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="error" />
+            <param name="LevelMax" value="fatal" />
+        </filter>
+    </appender>
+ 
+    <root>
+        <priority value="info" />
+        <appender-ref ref="mailAppender" />
+    </root>
+</log4j:configuration>
+ ```
+
+# Gerando logs por dia
+---------------------------
+
+### configuration log4j.xml  
+ 
+ ```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+ 
+    <appender name="Default.file" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="${catalina.base}/logs/globus/IntegracaoGlobus.log" />
+        <param name="append" value="true" />
+        <param name="DatePattern" value="'.'yyyy-MM-dd" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p [%c{1}] - %m%n" />
+        </layout>
+    </appender>
+ 
+    <root>
+        <priority value="info" />
+        <appender-ref ref="Default.file" />
+    </root>
+</log4j:configuration>
+ ```

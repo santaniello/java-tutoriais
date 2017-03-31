@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+	
+	<tx:annotation-driven />
+	
+	<context:component-scan base-package="br.com.twf" />
+	
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+		
+	<!-- Data Source C3P0 -->
+	<beans:bean id="dsProducao" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<beans:property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<beans:property name="jdbcUrl"
+			value="jdbc:mysql://localhost:3306/twf?autoReconnect=true" />
+		<beans:property name="user" value="root" />
+		<beans:property name="password" value="" />
+		<!-- Propriedades do C3P0 -->
+		<beans:property name="initialPoolSize" value="10" />
+		<beans:property name="minPoolSize" value="5" />
+		<beans:property name="maxPoolSize" value="31" />
+		<beans:property name="checkoutTimeout" value="50" />
+		<beans:property name="acquireIncrement" value="2" />
+		<beans:property name="idleConnectionTestPeriod" value="100" />
+		<beans:property name="maxStatements" value="0" />
+		<beans:property name="automaticTestTable" value="select 1" />
+		<beans:property name="testConnectionOnCheckout" value="true" />
+		<beans:property name="debugUnreturnedConnectionStackTraces" value="true" />
+		<beans:property name="maxIdleTime" value="300" />
+    	<beans:property name="maxIdleTimeExcessConnections" value="240" />
+	</beans:bean>
+	
+	<!-- Injetando e gerenciando o entity manager -->
+	<beans:bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<beans:property name="dataSource" ref="dsProducao" />
+		<beans:property name="jpaVendorAdapter">
+			<beans:bean
+				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</beans:property>
+	</beans:bean>
+		
+	<!-- Controlando transações com spring -->
+	<beans:bean id="transactionManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<beans:property name="entityManagerFactory" ref="entityManagerFactory" />
+	</beans:bean>
+		
+	<!-- ********** Configuration Spring Data ************************************************** -->
+    <beans:bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+    <jpa:repositories base-package="br.com.twf.model.repositories"
+                      entity-manager-factory-ref="entityManagerFactory"
+                      transaction-manager-ref="transactionManager"/>         
+	
+	
+</beans:beans>

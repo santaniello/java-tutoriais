@@ -1,0 +1,35 @@
+<!-- Arquivo que valida o arquivo vendas.xml  -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- xmlns:xsd estamos apelidando o namespace do xsd (O apelido é xsd), então deveremos colocar em todas as Tags  -->
+<!-- Validando a Tag produto (Ela foi colocada separada para melhorar a organização do arquivo...)  -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="produto">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="nome" type="xsd:string" />
+				<xsd:element name="preco" type="xsd:double" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+<!-- Parte principal da validação ...  -->
+	<xsd:element name="venda">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="formaDePagamento" type="xsd:string" />
+				<xsd:element name="produtos">
+					<xsd:complexType>
+						<xsd:sequence>
+						    <!-- Importando a validação da Tag produto / maxOccurs="unbounded" não existe uma quantidade de produtos especificas que nós possamos ter no arquivo...  --> 
+							<xsd:element ref="produto" maxOccurs="unbounded" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="moeda" type="xsd:string" />
+		</xsd:complexType>
+	</xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,251 @@
+
+/*****  SpinKit ****/
+	
+.spinner {
+    width: 70px;
+    height: 70px;
+    background-color: #333;
+    margin: 100px auto;
+   -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+    animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-rotateplane {
+	0% { -webkit-transform: perspective(120px) }
+	50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+	100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+}
+
+@keyframes sk-rotateplane {
+  	0% {transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+	    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg) 
+	} 
+	
+	50% {transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+	    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg) 
+	} 
+	
+	100% {transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+	      -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+	}
+}
+
+
+/**** radio-button ****/
+
+.control {
+	font-size: 18px;
+	position: relative;
+	
+	margin-bottom: 15px;
+	padding-left: 30px;
+	cursor: pointer;
+}
+
+.control input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+
+.control__indicator {
+	position: absolute;
+	top: 2px;
+	left: 0;
+	width: 20px;
+	height: 20px;
+	background: #e6e6e6;
+}
+
+.control--radio .control__indicator {
+	border-radius: 50%;
+}
+
+/* Hover and focus states */
+.control:hover input ~ .control__indicator,
+.control input:focus ~ .control__indicator {
+	background: #ccc;
+}
+
+/* Checked state */
+.control input:checked ~ .control__indicator {
+	background: #2aa1c0;
+}
+
+/* Hover state whilst checked */
+.control:hover input:not([disabled]):checked ~ .control__indicator,
+.control input:checked:focus ~ .control__indicator {
+	background: #0e647d;
+}
+
+/* Disabled state */
+.control input:disabled ~ .control__indicator {
+	pointer-events: none;
+	opacity: .6;
+	background: #e6e6e6;
+}
+
+/* Check mark */
+.control__indicator:after {
+	position: absolute;
+	display: none;
+	content: '';
+}
+
+/* Show check mark */
+.control input:checked ~ .control__indicator:after {
+	display: block;
+}
+
+/* Checkbox tick */
+.control--checkbox .control__indicator:after {
+	top: 4px;
+	left: 8px;
+	width: 3px;
+	height: 8px;
+	transform: rotate(45deg);
+	border: solid #fff;
+	border-width: 0 2px 2px 0;
+}
+
+/* Disabled tick colour */
+.control--checkbox input:disabled ~ .control__indicator:after {
+	border-color: #7b7b7b;
+}
+
+/* Radio button inner circle */
+.control--radio .control__indicator:after {
+	top: 7px;
+	left: 7px;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: #fff;
+}
+
+/* Disabled circle colour */
+.control--radio input:disabled ~ .control__indicator:after {
+	background: #7b7b7b;
+}
+
+
+/**** Formulários ****/
+
+.form-linha{
+	margin-top: 7px;   	
+}
+
+.erro.ng-dirty.ng-invalid {
+    border-color: red;
+}
+
+.btn-app-save {
+	margin-left: 0px;
+	background-color: #8AFB17;
+	color:black;
+}
+
+.btn-app-save:hover {
+	border-color: #aaa;
+	background-color: #89C35C;	
+	color:black;	
+}
+
+.btn-app-limpar {
+	margin-left: 0px;
+	background-color: #FFD801;
+	color:black;	
+}
+
+.btn-app-limpar:hover {
+	border-color: #aaa;
+	background-color: #FFFF00;	
+	color:black;	
+}
+
+.btn-app-ghostwhite {
+	margin-left: 0px;
+	background-color: #F8F8FF;
+	color:black;	
+}
+
+.btn-app-ghostwhite:hover {
+	border-color: #aaa;
+	background-color: #FFFF00;	
+	color:black;	
+}
+
+
+
+.labelDanger {
+    background-color: #dd4b39 !important;
+}
+
+.labelSuccess {
+    background-color: #00a65a !important;
+}
+
+legend {
+  -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: -moz-use-text-color -moz-use-text-color #e5e5e5;
+    border-image: none;
+    border-style:none none none;
+    border-width: 0 0 0;
+    color: #333;
+    display: block;
+    font-size: 15px;
+    line-height: inherit;
+    margin-bottom: 10px;
+ 
+    padding: 0;
+    width: 100%;
+    font-weight: bold;
+}
+
+
+.pagination {
+    border-radius: 4px;
+    display: inline-block;
+    margin: 0 0;
+    padding-left: 0;
+}
+
+
+/****** circle-buttons *******/
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+
+
+
+.modal-content{
+	border-radius:6px;
+	
+}
+
